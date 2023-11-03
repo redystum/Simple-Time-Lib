@@ -12,6 +12,7 @@ A C library for working with date and time, providing various functions for mani
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Usage Examples](#usage-examples)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -70,6 +71,10 @@ int main() {
     return 0;
 }
 ```
+
+## Documentation
+
+Full documentation here: [Simple Time Library Documentation](https://redystum.github.io/simple-time-lib/).
 
 ## Contributing
 
