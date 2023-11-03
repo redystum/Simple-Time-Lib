@@ -9,6 +9,7 @@
 #include <time.h>
 #include <malloc.h>
 #include <string.h>
+#include <stdbool.h>
 
 /// A struct to hold a date and time
 /// @param  year
@@ -154,6 +155,178 @@ int subtract_minutes(int unix, int minutes);
 /// @return unix time in seconds since 1970
 int subtract_seconds(int unix, int seconds);
 
+/// Checks if a year is a leap year
+/// @param year
+/// @return true if leap year
+bool is_leap_year(int year);
+
+/// Checks if a datetime struct is valid
+/// @param datetime struct
+/// @return true if valid
+bool is_valid_datetime(datetime dt);
+
+/// Compares two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return true if equal
+bool compare_datetime(datetime dt1, datetime dt2);
+
+/// Compares two datetime structs with a margin of days
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @param days
+/// @return true if equal
+bool compare_with_days_margin(datetime dt1, datetime dt2, int days);
+
+/// Compares two datetime structs with a margin of months
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @param months
+/// @return true if equal
+bool compare_with_months_margin(datetime dt1, datetime dt2, int months);
+
+/// Compares two datetime structs with a margin of years
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @param years
+/// @return true if equal
+bool compare_with_years_margin(datetime dt1, datetime dt2, int years);
+
+/// Compares two datetime structs with a margin of hours
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @param hours
+/// @return true if equal
+bool compare_with_hours_margin(datetime dt1, datetime dt2, int hours);
+
+/// Compares two datetime structs with a margin of minutes
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @param minutes
+/// @return true if equal
+bool compare_with_minutes_margin(datetime dt1, datetime dt2, int minutes);
+
+/// Compares two datetime structs with a margin of seconds
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @param seconds
+/// @return true if equal
+bool compare_with_seconds_margin(datetime dt1, datetime dt2, int seconds);
+
+/// Compares two unix times with a margin of days
+/// @param unix time 1
+/// @param unix time 2
+/// @param days
+/// @return true if equal
+bool compare_with_days_margin_unix(int unix1, int unix2, int days);
+
+/// Compares two unix times with a margin of months
+/// @param unix time 1
+/// @param unix time 2
+/// @param months
+/// @return true if equal
+bool compare_with_months_margin_unix(int unix1, int unix2, int months);
+
+/// Compares two unix times with a margin of years
+/// @param unix time 1
+/// @param unix time 2
+/// @param years
+/// @return true if equal
+bool compare_with_years_margin_unix(int unix1, int unix2, int years);
+
+/// Compares two unix times with a margin of hours
+/// @param unix time 1
+/// @param unix time 2
+/// @param hours
+/// @return true if equal
+bool compare_with_hours_margin_unix(int unix1, int unix2, int hours);
+
+/// Compares two unix times with a margin of minutes
+/// @param unix time 1
+/// @param unix time 2
+/// @param minutes
+/// @return true if equal
+bool compare_with_minutes_margin_unix(int unix1, int unix2, int minutes);
+
+/// Compares two unix times with a margin of seconds
+/// @param unix time 1
+/// @param unix time 2
+/// @param seconds
+/// @return true if equal
+bool compare_with_seconds_margin_unix(int unix1, int unix2, int seconds);
+
+/// Returns the number of days between two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return number of days
+int get_days_between_datetime(datetime dt1, datetime dt2);
+
+/// Returns the number of months between two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return number of months
+int get_months_between_datetime(datetime dt1, datetime dt2);
+
+/// Returns the number of years between two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return number of years
+int get_years_between_datetime(datetime dt1, datetime dt2);
+
+/// Returns the number of hours between two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return number of hours
+int get_hours_between_datetime(datetime dt1, datetime dt2);
+
+/// Returns the number of minutes between two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return number of minutes
+int get_minutes_between_datetime(datetime dt1, datetime dt2);
+
+/// Returns the number of seconds between two datetime structs
+/// @param datetime struct 1
+/// @param datetime struct 2
+/// @return number of seconds
+int get_seconds_between_datetime(datetime dt1, datetime dt2);
+
+/// Returns the number of days between two unix times
+/// @param unix time 1
+/// @param unix time 2
+/// @return number of days
+int get_days_between_unix(int unix1, int unix2);
+
+/// Returns the number of months between two unix times
+/// @param unix time 1
+/// @param unix time 2
+/// @return number of months
+int get_months_between_unix(int unix1, int unix2);
+
+/// Returns the number of years between two unix times
+/// @param unix time 1
+/// @param unix time 2
+/// @return number of years
+int get_years_between_unix(int unix1, int unix2);
+
+/// Returns the number of hours between two unix times
+/// @param unix time 1
+/// @param unix time 2
+/// @return number of hours
+int get_hours_between_unix(int unix1, int unix2);
+
+/// Returns the number of minutes between two unix times
+/// @param unix time 1
+/// @param unix time 2
+/// @return number of minutes
+int get_minutes_between_unix(int unix1, int unix2);
+
+/// Returns the number of seconds between two unix times
+/// @param unix time 1
+/// @param unix time 2
+/// @return number of seconds
+int get_seconds_between_unix(int unix1, int unix2);
+
 
 int unix_time() {
     time_t t = time(NULL);
@@ -168,6 +341,8 @@ datetime current_datetime() {
 }
 
 char *datetime_to_string(const datetime dt, const char *format) {
+    if (!is_valid_datetime(dt)) return NULL;
+
     if (format == NULL || format[0] == '\0') {
         char *str = malloc(20 * sizeof(char));
         sprintf(str, "%d-%d-%d %d:%d:%d", dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second);
@@ -233,6 +408,11 @@ char *current_datetime_string(const char *format) {
 }
 
 int datetime_to_unix(const datetime dt) {
+    if (!is_valid_datetime(dt)) return -1;
+
+    if (dt.year < 1970) {
+        return -1;
+    }
     struct tm tm = {dt.second, dt.minute, dt.hour, dt.day, dt.month - 1, dt.year - 1900};
     time_t t = mktime(&tm);
     return (int) t;
@@ -310,5 +490,154 @@ int subtract_seconds(const int unix, const int seconds) {
     return datetime_to_unix(dt);
 }
 
+bool is_leap_year(const int year) {
+    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+}
+
+bool is_valid_datetime(const datetime dt) {
+    if (dt.year < 0 || dt.month <= 0 || dt.month > 12 || dt.day <= 0 || dt.day > 31 || dt.hour < 0 || dt.hour > 23 ||
+        dt.minute < 0 || dt.minute > 59 || dt.second < 0 || dt.second > 59) {
+        return false;
+    }
+
+    if (dt.month == 2) {
+        if (is_leap_year(dt.year)) {
+            return dt.day <= 29;
+        } else {
+            return dt.day <= 28;
+        }
+    }
+
+    if (dt.month == 4 || dt.month == 6 || dt.month == 9 || dt.month == 11) {
+        return dt.day <= 30;
+    }
+
+    return true;
+}
+
+bool compare_datetime(const datetime dt1, const datetime dt2) {
+    return dt1.year == dt2.year && dt1.month == dt2.month && dt1.day == dt2.day && dt1.hour == dt2.hour &&
+           dt1.minute == dt2.minute && dt1.second == dt2.second;
+}
+
+bool compare_with_days_margin(const datetime dt1, const datetime dt2, const int days) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - days * 86400 <= unix2 && unix1 + days * 86400 >= unix2;
+}
+
+bool compare_with_months_margin(const datetime dt1, const datetime dt2, const int months) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - months * 2592000 <= unix2 && unix1 + months * 2592000 >= unix2;
+}
+
+bool compare_with_years_margin(const datetime dt1, const datetime dt2, const int years) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - years * 31536000 <= unix2 && unix1 + years * 31536000 >= unix2;
+}
+
+bool compare_with_hours_margin(const datetime dt1, const datetime dt2, const int hours) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - hours * 3600 <= unix2 && unix1 + hours * 3600 >= unix2;
+}
+
+bool compare_with_minutes_margin(const datetime dt1, const datetime dt2, const int minutes) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - minutes * 60 <= unix2 && unix1 + minutes * 60 >= unix2;
+}
+
+bool compare_with_seconds_margin(const datetime dt1, const datetime dt2, const int seconds) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - seconds <= unix2 && unix1 + seconds >= unix2;
+}
+
+bool compare_with_days_margin_unix(const int unix1, const int unix2, const int days) {
+    return unix1 - days * 86400 <= unix2 && unix1 + days * 86400 >= unix2;
+}
+
+bool compare_with_months_margin_unix(const int unix1, const int unix2, const int months) {
+    return unix1 - months * 2592000 <= unix2 && unix1 + months * 2592000 >= unix2;
+}
+
+bool compare_with_years_margin_unix(const int unix1, const int unix2, const int years) {
+    return unix1 - years * 31536000 <= unix2 && unix1 + years * 31536000 >= unix2;
+}
+
+bool compare_with_hours_margin_unix(const int unix1, const int unix2, const int hours) {
+    return unix1 - hours * 3600 <= unix2 && unix1 + hours * 3600 >= unix2;
+}
+
+bool compare_with_minutes_margin_unix(const int unix1, const int unix2, const int minutes) {
+    return unix1 - minutes * 60 <= unix2 && unix1 + minutes * 60 >= unix2;
+}
+
+bool compare_with_seconds_margin_unix(const int unix1, const int unix2, const int seconds) {
+    return unix1 - seconds <= unix2 && unix1 + seconds >= unix2;
+}
+
+int get_days_between_datetime(const datetime dt1, const datetime dt2) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return (unix1 - unix2) / 86400;
+}
+
+int get_months_between_datetime(const datetime dt1, const datetime dt2) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return (unix1 - unix2) / 2592000;
+}
+
+int get_years_between_datetime(const datetime dt1, const datetime dt2) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return (unix1 - unix2) / 31536000;
+}
+
+int get_hours_between_datetime(const datetime dt1, const datetime dt2) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return (unix1 - unix2) / 3600;
+}
+
+int get_minutes_between_datetime(const datetime dt1, const datetime dt2) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return (unix1 - unix2) / 60;
+}
+
+int get_seconds_between_datetime(const datetime dt1, const datetime dt2) {
+    int unix1 = datetime_to_unix(dt1);
+    int unix2 = datetime_to_unix(dt2);
+    return unix1 - unix2;
+}
+
+int get_days_between_unix(const int unix1, const int unix2) {
+    return (unix1 - unix2) / 86400;
+}
+
+int get_months_between_unix(const int unix1, const int unix2) {
+    return (unix1 - unix2) / 2592000;
+}
+
+int get_years_between_unix(const int unix1, const int unix2) {
+    return (unix1 - unix2) / 31536000;
+}
+
+int get_hours_between_unix(const int unix1, const int unix2) {
+    return (unix1 - unix2) / 3600;
+}
+
+int get_minutes_between_unix(const int unix1, const int unix2) {
+    return (unix1 - unix2) / 60;
+}
+
+int get_seconds_between_unix(const int unix1, const int unix2) {
+    return unix1 - unix2;
+}
 
 #endif //SIMPLE_TIME_LIBRARY_H
