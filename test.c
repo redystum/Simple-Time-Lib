@@ -1,4 +1,4 @@
-#include "library.h"
+#include "simple_time_lib.h"
 
 #include <stdio.h>
 #include <time.h>

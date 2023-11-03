@@ -2,8 +2,8 @@
 // Created by redystum on 02/11/2023.
 //
 
-#ifndef SIMPLE_TIME_LIBRARY_H
-#define SIMPLE_TIME_LIBRARY_H
+#ifndef SIMPLE_TIME_SIMPLE_TIME_LIB_H
+#define SIMPLE_TIME_SIMPLE_TIME_LIB_H
 
 #include <stdio.h>
 #include <time.h>
@@ -640,4 +640,4 @@ int get_seconds_between_unix(const int unix1, const int unix2) {
     return unix1 - unix2;
 }
 
-#endif //SIMPLE_TIME_LIBRARY_H
+#endif //SIMPLE_TIME_SIMPLE_TIME_LIB_H
