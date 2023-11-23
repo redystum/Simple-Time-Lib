@@ -74,7 +74,7 @@ int main() {
 
 ## Documentation
 
-Full documentation here: [Simple Time Library Documentation](https://redystum.github.io/simple-time-lib/).
+Full documentation here: [Simple Time Library Documentation](./DOCS.md).
 
 ## Contributing
 
